@@ -6,13 +6,15 @@ from PyQt5.QtGui import *
 from modules import stocklist
 from modules import chartdlg
 
+import sys
+
 import setting
 
 class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowSystemMenuHint)
+        self.setWindowFlags(Qt.FramelessWindowHint | Qt.Popup | Qt.Tool)  #Qt.WindowStaysOnTopHint
 
         self.setWindowTitle('Stock Watcher')
         self.setWindowIcon(QIcon('./images/console.png'))  
@@ -41,9 +43,12 @@ class MainWindow(QMainWindow):
 
         desktop = QApplication.desktop()
         self.move(int(setting.config['window']['left']), int(setting.config['window']['top']))
+        self.addTrayIcon()
 
     def quit(self):
+        self.trayIcon.setVisible(False)
         self.close()
+        sys.exit()
 
     def about(self):
         QMessageBox.about(self, 'About Stock Watcher',
@@ -67,3 +72,27 @@ class MainWindow(QMainWindow):
         self.chartdlg.updateChart(code)
         self.chartdlg.show()               
 
+
+    def addTrayIcon(self):
+        self.icon = QIcon('./images/console.png')
+         
+        self.trayIcon = QSystemTrayIcon(self)
+        self.trayIcon.setIcon(self.icon)
+        self.trayIcon.setToolTip("stock watcher")
+
+        self.trayIcon.activated.connect(self.onTrayIconActivated)
+       
+        menu = QMenu(self)
+        actionAbout = menu.addAction('关于')
+        actionAbout.triggered.connect(self.about)  
+
+        actionQuit = menu.addAction('退出')
+        actionQuit.triggered.connect(self.quit)
+
+        self.trayIcon.setContextMenu(menu) 
+
+        self.trayIcon.show()
+
+    def onTrayIconActivated(self, reason):
+        if reason == QSystemTrayIcon.Trigger:
+            self.activateWindow()
