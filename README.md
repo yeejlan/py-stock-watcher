@@ -1,11 +1,11 @@
 py-stock-watcher
 ---
 
-基于Python3, PyQt5写的股票分析软件
+基于Python3, PyQt5写的股票行情小工具
 
 安装，设置，运行:
 
-1. 需要[Python3.x](https://www.python.org/download)和[PyQt5](http://www.riverbankcomputing.co.uk/software/pyqt/download5)
+1. 需要[Python3](https://www.python.org/download)和[PyQt5](http://www.riverbankcomputing.co.uk/software/pyqt/download5)
 
 
 2. 打开config.ini设置需要显示的股票数据，目前支持沪深股票，港股，国内期货行情

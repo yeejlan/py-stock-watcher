@@ -49,6 +49,14 @@ class MainWindow(QMainWindow):
         self.trayIcon.setVisible(False)
         self.close()
         sys.exit()
+    
+    def hide(self):
+        self.chartdlg.setVisible(False)
+        self.setVisible(False)
+
+    def active(self):
+        self.setVisible(True)
+        self.activateWindow()        
 
     def about(self):
         QMessageBox.about(self, 'About Stock Watcher',
