@@ -43,7 +43,11 @@ class Stocklist(QTableWidget):
 
 		self.stockHqUpdate()
 
+		#set selected style
+		self.setStyleSheet('QTableWidget::item:selected{ background: rgba(0, 0, 150, 100); }')
+
 		self.itemDoubleClicked.connect(self.itemDoubleClickedHandler)
+		self.cellDoubleClicked.connect(self.cellDoubleClickedHandler)
 
 	def getStockList(self):
 		stockList = []
@@ -101,7 +105,7 @@ class Stocklist(QTableWidget):
 					newitem = QTableWidgetItem(value)
 					newitem.setForeground(Qt.black)					
 
-				newitem.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+				newitem.setFlags(Qt.ItemIsEnabled)
 				self.setItem(n, m, newitem)
 
 
@@ -110,6 +114,10 @@ class Stocklist(QTableWidget):
 		if(select.hasSelection()):
 			code = select.selectedRows()[0].data()
 			setting.mainwin.showChartDlg(code)
+
+	def cellDoubleClickedHandler(self, row, col):
+		code = self.item(row, 0).text()
+		setting.mainwin.showChartDlg(code)
 
 
 class DragableHeaderView(QHeaderView):
