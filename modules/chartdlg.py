@@ -14,6 +14,8 @@ class ChartDlg(QDialog):
         self.setWindowFlags(Qt.Tool|Qt.MSWindowsFixedSizeDialogHint)
         self.resize(550, 300)
         
+        self.setWindowTitle('Chart')
+
         self.chart = QLabel('')
 
         grid = QGridLayout()
@@ -25,7 +27,6 @@ class ChartDlg(QDialog):
         self.setLayout(grid)
 
     def updateChart(self, code):
-        self.setWindowTitle(code)
         imageUrl = stock.getStockChartUrl(code)
         url = QUrl(imageUrl)
         m_netwManager = QNetworkAccessManager(self)
