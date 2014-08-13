@@ -19,7 +19,7 @@ class WinEventFilter(QAbstractNativeEventFilter):
 	def nativeEventFilter(self, eventType, message):
 		msg = ctypes.wintypes.MSG.from_address(message.__int__())
 		if msg.message == WM_HOTKEY:
-			if(setting.mainwin.isVisible()):
+			if(setting.mainwin.isActiveWindow()):  #isVisible()
 				setting.mainwin.hide()
 			else:
 				setting.mainwin.active()

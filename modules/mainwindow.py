@@ -103,4 +103,4 @@ class MainWindow(QMainWindow):
 
     def onTrayIconActivated(self, reason):
         if reason == QSystemTrayIcon.Trigger:
-            self.activateWindow()
+            self.active()
