@@ -36,6 +36,8 @@ def getStockHq(code_list):
             info = qihuo_info(dataArr)
 
         info['code'] = code
+        if(code[:5] == 'rt_hk'):
+            info['code'] = code[3:]
 
         hqData.append(info)
 
