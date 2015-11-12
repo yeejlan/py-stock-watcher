@@ -26,6 +26,8 @@ def getStockHq(code_list):
             info = sh_sz_info(dataArr)
         elif(code[:2] == 'hk'):
             info = hk_info(dataArr)
+        elif(code[:5] == 'rt_hk'):
+            info = hk_info(dataArr)            
         elif(code[:6] == 'CFF_IF'):
             info = if_info(dataArr)
         elif(code[:6] == code and re.match('^[A-Z]+$',code)):
@@ -134,6 +136,8 @@ def getStockChartUrl(code):
         imageUrl = 'http://image.sinajs.cn/newchart/min/n/{}.gif?{}'.format(code, random.randint(1,1000000))
     elif(code[:2] == 'hk'):
         imageUrl = 'http://image.sinajs.cn/newchart/v5/hk_stock/min/{}.gif?{}'.format(code[2:], random.randint(1,1000000))
+    elif(code[:5] == 'rt_hk'):
+        imageUrl = 'http://image.sinajs.cn/newchart/v5/hk_stock/min/{}.gif?{}'.format(code[5:], random.randint(1,1000000))        
     elif(code[:6] == code and re.match('^[A-Z]+$',code)):
         imageUrl = 'http://image.sinajs.cn/newchart/v5/forex/min/{}.gif?{}'.format(code, random.randint(1,1000000))
     else:
