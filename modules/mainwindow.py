@@ -42,7 +42,10 @@ class MainWindow(QMainWindow):
         self.setMinimumSize(self.w, self.h)
 
         desktop = QApplication.desktop()
-        self.move(int(setting.config['window']['left']), int(setting.config['window']['top']))
+        rect = desktop.screenGeometry()
+        left = rect.right() - 20 - self.w
+        top = rect.bottom() - 60 - self.h
+        self.move(int(left), int(top))
         self.addTrayIcon()
 
     def quit(self):
