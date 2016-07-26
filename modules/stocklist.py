@@ -14,10 +14,10 @@ class Stocklist(QTableWidget):
 		super().__init__(*args)
 
 		hview = DragableHeaderView(Qt.Horizontal)
-		hview.setDefaultSectionSize(int(setting.config['window']['column_width']))
+		hview.setDefaultSectionSize(int(int(setting.config['window']['column_width'])*setting.scale))
 		self.setHorizontalHeader(hview)
 		vview = DragableHeaderView(Qt.Vertical)
-		vview.setDefaultSectionSize(int(setting.config['window']['row_height']))
+		vview.setDefaultSectionSize(int(int(setting.config['window']['row_height'])*setting.scale))
 		self.setVerticalHeader(vview)
 
 		self.setSelectionBehavior(QAbstractItemView.SelectRows)

@@ -36,15 +36,15 @@ class MainWindow(QMainWindow):
 
         self.createContextMenu()
 
-        self.w = int(setting.config['window']['width'])
-        self.h = int(setting.config['window']['height'])
+        self.w = int(int(setting.config['window']['width'])*setting.scale)
+        self.h = int(int(setting.config['window']['height'])*setting.scale)
 
         self.setMinimumSize(self.w, self.h)
 
         desktop = QApplication.desktop()
         rect = desktop.screenGeometry()
-        left = rect.right() - 20 - self.w
-        top = rect.bottom() - 60 - self.h
+        left = rect.right() - int(20*setting.scale) - self.w
+        top = rect.bottom() - int(60*setting.scale) - self.h
         self.move(int(left), int(top))
         self.addTrayIcon()
 

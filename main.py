@@ -18,6 +18,9 @@ setting.config = config
 
 app = QApplication(sys.argv)
 
+screen = QApplication.screens()[0]
+setting.scale = (screen.logicalDotsPerInch()/96)
+
 #main window
 setting.mainwin = mainwin = mainwindow.MainWindow()
 mainwin.show()
