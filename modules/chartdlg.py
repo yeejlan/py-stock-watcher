@@ -6,13 +6,15 @@ from PyQt5.QtNetwork import *
 
 from modules import stock
 
+import setting
+
 class ChartDlg(QDialog):
 
     def __init__(self, parent):
         super().__init__(parent)
         
         self.setWindowFlags(Qt.Tool|Qt.MSWindowsFixedSizeDialogHint)
-        self.resize(550, 300)
+        self.resize(int(550*setting.scale), int(300*setting.scale))
         
         self.setWindowTitle('Chart')
 
@@ -42,4 +44,4 @@ class ChartDlg(QDialog):
         imgData = reply.readAll()
         pixmap = QPixmap()
         pixmap.loadFromData(imgData)
-        self.chart.setPixmap(pixmap)
+        self.chart.setPixmap(pixmap.scaled(int(550*setting.scale), int(300*setting.scale)))
