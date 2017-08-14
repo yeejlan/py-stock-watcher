@@ -1,7 +1,7 @@
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from PyQt5.QtWebKit import *
+#from PyQt5.QtWebKit import *
 
 import setting
 
