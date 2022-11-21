@@ -2,7 +2,6 @@ import configparser
 import sys
 import codecs
 import platform
-
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -13,7 +12,8 @@ from modules import mainwindow
 
 config = configparser.ConfigParser()    
 config.optionxform=str
-config.readfp(codecs.open('config.ini', 'r', 'utf8'))  
+with codecs.open('config.ini', 'r', 'utf8') as f:
+    config.read_string(f.read())
 setting.config = config
 
 app = QApplication(sys.argv)

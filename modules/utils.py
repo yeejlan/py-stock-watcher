@@ -36,7 +36,7 @@ def _getWebContent(remote_url):  #internal function, return tuple(error, url, co
     content = ''
     try:
         req = urllib.request.Request(remote_url)
-        req.add_header('Referer', remote_url)
+        req.add_header('Referer', 'https://finance.sina.com.cn/realstock/company/sh000001/nc.shtml')
         req.add_header('User-Agent', setting.useragent)
         res = urllib.request.urlopen(req, None, 30)
         content = res.read()

@@ -42,7 +42,7 @@ def registerHotkey():
 	prototype = WINFUNCTYPE(c_bool, c_int, c_int, UINT, UINT)
 	paramflags = (1, 'hWnd', 0), (1, 'id', 0), (1, 'fsModifiers', 0), (1, 'vk', 0)
 	registerHotKey = prototype(('RegisterHotKey', windll.user32), paramflags)
-	success = registerHotKey(c_int(setting.mainwin.winId()), HOT_KEY_ID, modifier, key)
+	success = registerHotKey(c_int(int(setting.mainwin.winId())), HOT_KEY_ID, modifier, key)
 	if(not success):
 		print('Register global hotkey error')
 		return False
