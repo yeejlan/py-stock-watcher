@@ -1,8 +1,8 @@
 
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtNetwork import *
+from PyQt6.QtCore import *
+from PyQt6.QtWidgets import *
+from PyQt6.QtGui import *
+from PyQt6.QtNetwork import *
 
 from modules import stock
 
@@ -13,7 +13,7 @@ class ChartDlg(QDialog):
     def __init__(self, parent):
         super().__init__(parent)
         
-        self.setWindowFlags(Qt.Tool|Qt.MSWindowsFixedSizeDialogHint)
+        self.setWindowFlags(Qt.WindowType.Tool|Qt.WindowType.MSWindowsFixedSizeDialogHint)
         self.resize(int(550*setting.scale), int(300*setting.scale))
         
         self.setWindowTitle('Chart')
@@ -37,7 +37,7 @@ class ChartDlg(QDialog):
         m_netwManager.get(request)
 
     def netwManagerFinished(self, reply):
-        if(reply.error() != QNetworkReply.NoError):
+        if(reply.error() != QNetworkReply.NetworkError.NoError):
             print("Error in" + reply.url() + ":" + reply.errorString())
             return False
 

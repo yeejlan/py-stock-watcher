@@ -1,7 +1,7 @@
 
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+from PyQt6.QtCore import *
+from PyQt6.QtWidgets import *
+from PyQt6.QtGui import *
 
 from modules import stocklist
 from modules import chartdlg
@@ -14,7 +14,7 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.setWindowFlags(Qt.FramelessWindowHint | Qt.Popup | Qt.Tool)  #Qt.WindowStaysOnTopHint
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.Popup | Qt.WindowType.Tool)  #Qt.WindowStaysOnTopHint
 
         self.setWindowTitle('Stock Watcher')
         self.setWindowIcon(QIcon('./images/console.png'))  
@@ -25,7 +25,6 @@ class MainWindow(QMainWindow):
         rows = len(dict(setting.config.items('hq')))
         cols = len(dict(setting.config.items('info')))
         self.stocklist = stocklist.Stocklist(rows, cols)
-
         w = QWidget()
         vbox = QVBoxLayout()
         vbox.setSpacing(0)
@@ -41,10 +40,9 @@ class MainWindow(QMainWindow):
 
         self.setMinimumSize(self.w, self.h)
 
-        desktop = QApplication.desktop()
-        rect = desktop.screenGeometry()
-        left = rect.right() - int(20*setting.scale) - self.w
-        top = rect.bottom() - int(60*setting.scale) - self.h
+        rect = QGuiApplication.primaryScreen().size()
+        left = rect.width() - self.w
+        top = rect.height() - self.h - 40
         self.move(int(left), int(top))
         self.addTrayIcon()
 
@@ -66,7 +64,7 @@ class MainWindow(QMainWindow):
             "通过Sina获取股票实时行情的小程序.\r\nEnjoy it:)")        
 
     def createContextMenu(self):
-        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.customContextMenuRequested.connect(self.showContextMenu)
 
         self.contextMenu = QMenu(self)
@@ -105,5 +103,5 @@ class MainWindow(QMainWindow):
         self.trayIcon.show()
 
     def onTrayIconActivated(self, reason):
-        if reason == QSystemTrayIcon.Trigger:
+        if reason == QSystemTrayIcon.ActivationReason.Trigger:
             self.active()

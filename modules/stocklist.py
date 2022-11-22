@@ -1,7 +1,6 @@
 
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-#from PyQt5.QtWebKit import *
+from PyQt6.QtCore import *
+from PyQt6.QtWidgets import *
 
 import setting
 
@@ -13,15 +12,15 @@ class Stocklist(QTableWidget):
 	def __init__(self, *args):
 		super().__init__(*args)
 
-		hview = DragableHeaderView(Qt.Horizontal)
+		hview = DragableHeaderView(Qt.Orientation.Horizontal)
 		hview.setDefaultSectionSize(int(int(setting.config['window']['column_width'])*setting.scale))
 		self.setHorizontalHeader(hview)
-		vview = DragableHeaderView(Qt.Vertical)
+		vview = DragableHeaderView(Qt.Orientation.Vertical)
 		vview.setDefaultSectionSize(int(int(setting.config['window']['row_height'])*setting.scale))
 		self.setVerticalHeader(vview)
 
-		self.setSelectionBehavior(QAbstractItemView.SelectRows)
-		self.setSelectionMode(QAbstractItemView.SingleSelection)
+		self.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+		self.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
 
 		#get stock list
 		self.getStockList()
@@ -67,45 +66,45 @@ class Stocklist(QTableWidget):
 					value = hq[key]
 					if(key=='code' or key=='name' or key=='time'):
 						newitem = QTableWidgetItem(value)
-						newitem.setForeground(Qt.black)
+						newitem.setForeground(Qt.GlobalColor.black)
 						if(key=='time'):
-							newitem.setTextAlignment(Qt.AlignRight)
+							newitem.setTextAlignment(Qt.AlignmentFlag.AlignRight)
 					elif(key=='price_change_percent'):
 						newitem = QTableWidgetItem('{:-.2f}%'.format(value))
-						newitem.setTextAlignment(Qt.AlignRight)
+						newitem.setTextAlignment(Qt.AlignmentFlag.AlignRight)
 						if(value>0):
-							newitem.setForeground(Qt.red)
+							newitem.setForeground(Qt.GlobalColor.red)
 						elif(value == 0):
-							newitem.setForeground(Qt.black)
+							newitem.setForeground(Qt.GlobalColor.black)
 						else:
-							newitem.setForeground(Qt.darkGreen)
+							newitem.setForeground(Qt.GlobalColor.darkGreen)
 					else:
 						valStr = '{:-.3f}'.format(value)
 						if(valStr[-1:] == '0'):
 							valStr = valStr[:-1]
 						newitem = QTableWidgetItem(valStr)	
-						newitem.setTextAlignment(Qt.AlignRight)
+						newitem.setTextAlignment(Qt.AlignmentFlag.AlignRight)
 						if(key=='price_change'):
 							if(value>0):
-								newitem.setForeground(Qt.red)
+								newitem.setForeground(Qt.GlobalColor.red)
 							elif(value == 0):
-								newitem.setForeground(Qt.black)
+								newitem.setForeground(Qt.GlobalColor.black)
 							else:
-								newitem.setForeground(Qt.darkGreen)		
+								newitem.setForeground(Qt.GlobalColor.darkGreen)		
 						else:
 							if(value>hq['close_yesterday']):
-								newitem.setForeground(Qt.red)
+								newitem.setForeground(Qt.GlobalColor.red)
 							elif(value == hq['close_yesterday']):
-								newitem.setForeground(Qt.black)
+								newitem.setForeground(Qt.GlobalColor.black)
 							else:
-								newitem.setForeground(Qt.darkGreen)														
+								newitem.setForeground(Qt.GlobalColor.darkGreen)														
 
 				except KeyError:
 					value = ''
 					newitem = QTableWidgetItem(value)
-					newitem.setForeground(Qt.black)					
+					newitem.setForeground(Qt.GlobalColor.black)					
 
-				newitem.setFlags(Qt.ItemIsEnabled)
+				newitem.setFlags(Qt.ItemFlag.ItemIsEnabled)
 				self.setItem(n, m, newitem)
 
 
@@ -125,11 +124,11 @@ class DragableHeaderView(QHeaderView):
 		super().__init__(*args)
 
 	def mousePressEvent(self, event):
-		if event.button() == Qt.LeftButton:
-			setting.mainwin.dragPosition = event.globalPos() - setting.mainwin.frameGeometry().topLeft()
+		if event.button() == Qt.MouseButton.LeftButton:
+			setting.mainwin.dragPosition = event.globalPosition() - QPointF(setting.mainwin.frameGeometry().topLeft())
 			event.accept()
 
 	def mouseMoveEvent(self, event):
-		if event.buttons() == Qt.LeftButton:
-			setting.mainwin.move(event.globalPos() - setting.mainwin.dragPosition)
-			event.accept()     	
+		if event.buttons() == Qt.MouseButton.LeftButton:
+			setting.mainwin.move((event.globalPosition() - setting.mainwin.dragPosition).toPoint())
+			event.accept()

@@ -2,7 +2,7 @@ import ctypes
 from ctypes import c_bool, c_int, WINFUNCTYPE, windll
 from ctypes.wintypes import UINT
 
-from PyQt5.QtCore import *
+from PyQt6.QtCore import *
 
 import setting
 
