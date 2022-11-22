@@ -42,9 +42,6 @@ class Stocklist(QTableWidget):
 
 		self.stockHqUpdate()
 
-		#set selected style
-		self.setStyleSheet('QTableWidget::item:selected{ background: rgba(0, 0, 150, 100); }')
-
 		self.itemDoubleClicked.connect(self.itemDoubleClickedHandler)
 		self.cellDoubleClicked.connect(self.cellDoubleClickedHandler)
 
@@ -68,10 +65,10 @@ class Stocklist(QTableWidget):
 						newitem = QTableWidgetItem(value)
 						newitem.setForeground(Qt.GlobalColor.black)
 						if(key=='time'):
-							newitem.setTextAlignment(Qt.AlignmentFlag.AlignRight)
+							newitem.setTextAlignment(Qt.AlignmentFlag.AlignVCenter|Qt.AlignmentFlag.AlignRight)
 					elif(key=='price_change_percent'):
 						newitem = QTableWidgetItem('{:-.2f}%'.format(value))
-						newitem.setTextAlignment(Qt.AlignmentFlag.AlignRight)
+						newitem.setTextAlignment(Qt.AlignmentFlag.AlignVCenter|Qt.AlignmentFlag.AlignRight)
 						if(value>0):
 							newitem.setForeground(Qt.GlobalColor.red)
 						elif(value == 0):
@@ -83,7 +80,7 @@ class Stocklist(QTableWidget):
 						if(valStr[-1:] == '0'):
 							valStr = valStr[:-1]
 						newitem = QTableWidgetItem(valStr)	
-						newitem.setTextAlignment(Qt.AlignmentFlag.AlignRight)
+						newitem.setTextAlignment(Qt.AlignmentFlag.AlignVCenter|Qt.AlignmentFlag.AlignRight)
 						if(key=='price_change'):
 							if(value>0):
 								newitem.setForeground(Qt.GlobalColor.red)
