@@ -1,7 +1,7 @@
 py-stock-watcher
 ---
 
-基于Python3, PyQt5写的股票行情小工具
+用Python写的股票行情小工具
 
 安装，设置，运行:
 
